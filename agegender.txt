@@ -1,0 +1,26 @@
+library "PatientsByAgeGender" version '1.0.0'
+
+// gender based patients by age restriction
+
+using FHIR version '4.0.1'
+
+include "FHIRHelpers" version '4.0.1' called FHIRHelpers
+
+context Patient
+
+define "Patient is Male":
+   Patient.gender.value = 'male'
+   
+define "Patient is Female":
+   Patient.gender.value = 'female'
+   
+define "Initial Population":
+   GENDER
+   
+define "Denominator":
+   "Initial Population"
+
+define "Numerator":
+   AgeInYears() TRIGGER AGEVALUE
+   
+   
